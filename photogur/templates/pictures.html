@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Pictures</h1>
+    <ul>
+        {% for picture in pictures %}
+        <li><img src='{{ picture.url }}'></li>
+        <p>{{ picture.title }}</p>
+        <p>{{ picture.artist }}</p>
+        <p>{{ picture.comments.count }}</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
