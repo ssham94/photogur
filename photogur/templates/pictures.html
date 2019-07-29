@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Pictures</h1>
-    {% for picture in pictures %}
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class= "gallery">
+
+
+{% for picture in pictures %}
     <a href="{% url 'picture_details' id=picture.pk %}">
-        <li>
-            <img src= '{{ picture.url }}'>
-        </li>
+        <img src= '{{ picture.url }}' class="gallery-pic">
+        <p>{{ picture.title }} by {{ picture.artist }}</p>
     </a>
-    {% endfor %}
-</body>
-</html>
+{% endfor %}
+
+
+</div>
+{% endblock %}
