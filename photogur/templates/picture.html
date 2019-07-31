@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>This is a picture</h2>
+
+<h2>{{ picture.title }}</h2>
+<div class=ind-picture>
 <h3>By {{picture.artist}}</h3>
 
 <img src="{{ picture.url }}" alt="{{ picture.title }}" /> 
@@ -9,9 +11,19 @@
         <li>
             {% for comment in picture.comments.all %}
             <p>{{ comment.name }}</p>
-            <p>{{ comment.created_at }}</p>
+            <span class="date"><p>{{ comment.created_at }}</p></span>
             <p>{{ comment.message }}</p>
             {% endfor %}
         </li>
     </ul>
-{% endblock %}
+    <form action="{% url 'create_comment' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="picture" value="{{ picture.pk }}">
+        Name: <input type="text" name="username">
+        <br><br>
+        <textarea rows="4" cols="50" name="comment" value="Leave comment here"></textarea>
+        <br>
+        <input type="submit" name="submit" value="submit">
+    </form>
+</div>
+{% endblock %}  

@@ -1,5 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    color: grey;
 }
 
 header {
@@ -7,7 +8,20 @@ header {
     border-bottom: 1px solid #E8EAEC;
     margin: 0;
     background: white;
+    padding: 0 0 0 20px;
+}
+
+header a {
+    text-decoration: none;
     color: grey;
+}
+
+header > form{
+    margin-bottom: 10px;
+}
+
+
+main > h2 {
     padding: 0 0 0 20px;
 }
 
@@ -38,6 +52,20 @@ footer {
     color: grey;
     font-size: 1em;
 }
+.searched{
+    border-bottom: 1px solid #E8EAEC;
+    color: grey;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.searched img{
+    max-width: 60%;
+}
+
+.ind-picture{
+    padding-left: 20px;
+}
+
 
 @media only screen and (min-width: 600px) {
     .gallery {
@@ -49,7 +77,6 @@ footer {
 
 }
 
-
 @media only screen and (min-width: 998px) {
 
     .gallery{
@@ -58,4 +85,19 @@ footer {
         grid-gap: 10px;
         margin: 20px 100px;
     }
+
+    .searched {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        padding: 20px 0;
+        margin: 0 40px;
+        
+    }
+
+    .searched img{
+        max-width: 50%;
+        margin-right: 10px;
+    }
 }
+

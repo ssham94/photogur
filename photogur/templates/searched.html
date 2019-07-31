@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Search results: <u>{{ pictures|length }}</u></h2>
+{% for picture in pictures %}
+<div class="searched">
+    <img src="{{ picture.url }}"/> <p><i>{{ picture.title }}</i> by {{ picture.artist }}</p>
+</div>
+{% endfor %}
+{% endblock %}

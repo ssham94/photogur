@@ -10,9 +10,20 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
-    <header><h1>Photogur</h1></header>
-    {% block content %}
-    {% endblock %}
+    <header>
+        <h1><a href="/pictures">Photogur</a></h1>
+        <form action="{% url 'picture_search' %}", method="get">
+        <label for="picture-search">
+            <span>Search</span>
+            <input type="search" id="picture-search" name="query"/>
+        </label>
+        <input type="submit" value="Search">
+        </form>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
     <footer>Copyright Stanley Sham</footer>
 </body>
 </html>
