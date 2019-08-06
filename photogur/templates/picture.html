@@ -8,6 +8,7 @@
 
 <img src="{{ picture.url }}" alt="{{ picture.title }}" /> 
     <ul>
+        <div class="comment-list">
         <li>
             {% for comment in picture.comments.all %}
             <p>{{ comment.name }}</p>
@@ -15,8 +16,9 @@
             <p>{{ comment.message }}</p>
             {% endfor %}
         </li>
+        </div>
     </ul>
-    <form action="{% url 'create_comment' %}" method="post">
+    <form action="{% url 'create_comment' %}" method="post" class="input-form">
         {% csrf_token %}
         <input type="hidden" name="picture" value="{{ picture.pk }}">
         Name: <input type="text" name="username">

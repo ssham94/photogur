@@ -22,5 +22,8 @@ urlpatterns = [
     path('pictures/', pictures_page),
     path('pictures/<int:id>', picture_show, name='picture_details'),
     path('search', picture_search, name='picture_search'),
-    path('comments/new', create_comment, name='create_comment')
+    path('comments/new', create_comment, name='create_comment'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('signup/', signup, name = 'signup')
 ]
