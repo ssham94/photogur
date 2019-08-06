@@ -1,6 +1,4 @@
 from django.forms import CharField, PasswordInput, Form, IntegerField
-from django.db import models
-
 
 class LoginForm(Form):
     username = CharField(label="User Name", max_length = 64)
