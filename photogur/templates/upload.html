@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Upload Picture</h2>
+<form action = "{% url 'upload' %}" method="post" class = "input-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type = "submit">Upload Picture</button>
+</form>
+{% endblock %}

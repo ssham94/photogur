@@ -18,6 +18,7 @@ from django.urls import path
 from photogur.views import *
 
 urlpatterns = [
+    path('', root),
     path('admin/', admin.site.urls),
     path('pictures/', pictures_page),
     path('pictures/<int:id>', picture_show, name='picture_details'),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('comments/new', create_comment, name='create_comment'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
-    path('signup/', signup, name = 'signup')
+    path('signup/', signup, name = 'signup'),
+    path('pictures/new', upload_picture, name='upload')
 ]

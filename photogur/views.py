@@ -1,9 +1,12 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from photogur.models import *
-from photogur.forms import LoginForm
+from photogur.forms import LoginForm, PictureForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+
+def root(request):
+    return HttpResponseRedirect('/pictures')
 
 
 def pictures_page(request):
@@ -70,3 +73,19 @@ def signup(request):
     else:
         form = UserCreationForm()
     return HttpResponse(render(request, 'signup.html', {'form': form}))
+
+def upload_picture(request):
+    if request.method == 'POST':
+        form = PictureForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            artist = form.cleaned_data.get('artist')
+            url = form.cleaned_data.get('url')
+            username = request.user
+            new_picture = Picture.objects.create(title = title, artist = artist, url = url, user = request.user)
+            new_picture.save()
+            return HttpResponseRedirect('/pictures')
+    else:
+        form = PictureForm()
+    context = {'form': form}
+    return HttpResponse(render(request, 'upload.html', context))

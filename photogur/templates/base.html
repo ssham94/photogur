@@ -21,9 +21,9 @@
         </form>
         {% if request.user.is_authenticated %}
             <h3><a href="/logout">Logout</a></h3>
+            <h3><a href="/pictures/new">Upload Picture</a></h3>
         {% else %}
             <h3><a href="/login">Login</a></h3>
-            <h3><a href="/pictures/upload">Upload Picture</a></h3>
         {% endif %}
     </header>
     <main>
