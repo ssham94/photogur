@@ -1,9 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from photogur.models import *
 from photogur.forms import LoginForm, PictureForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 def root(request):
     return HttpResponseRedirect('/pictures')
@@ -38,6 +39,8 @@ def create_comment(request):
     return render(request, 'picture.html', context)
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/pictures')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -56,11 +59,14 @@ def login_view(request):
     http_response = render(request, 'login.html', context)
     return HttpResponse(http_response)
 
+@login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/pictures')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/pictures')
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -74,6 +80,8 @@ def signup(request):
         form = UserCreationForm()
     return HttpResponse(render(request, 'signup.html', {'form': form}))
 
+
+@login_required
 def upload_picture(request):
     if request.method == 'POST':
         form = PictureForm(request.POST)
@@ -89,3 +97,21 @@ def upload_picture(request):
         form = PictureForm()
     context = {'form': form}
     return HttpResponse(render(request, 'upload.html', context))
+
+@login_required
+def picture_edit(request, id):
+    picture = get_object_or_404(Picture, pk=id, user=request.user.pk)
+    if request.method == 'POST':
+        form = PictureForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            artist = form.cleaned_data.get('artist')
+            url = form.cleaned_data.get('url')
+            picture.title = title
+            picture.artist = artist
+            picture.url = url
+            picture.save()
+            return HttpResponseRedirect('/pictures')
+    form = PictureForm(request.POST)
+    context = {'picture': picture, 'form':form}
+    return HttpResponse(render(request, 'edit.html', context))
